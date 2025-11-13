@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>ESTO TAMBIÉN SOY YO · Pablo Santos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Acceso exclusivo al álbum ESTO TAMBIÉN SOY YO de Pablo Santos." />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to bottom, #ffffff, #eaf3ff);
+      color: #111;
+    }
+    .page { width: 100%; max-width: 1100px; padding: 32px 20px 48px; }
+    header { text-align: center; margin-bottom: 28px; }
+    .cover { width: 240px; max-width: 60vw; margin: 0 auto 16px; border-radius: 10px; overflow: hidden;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.25); }
+    .cover img { width: 100%; display: block; }
+    h1 { font-size: 2.4rem; letter-spacing: 0.12em; font-weight: 600; margin-bottom: 4px; }
+    h2 { font-size: 0.9rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #444; }
+    .glass-line { margin: 24px auto 14px; width: 90px; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(0,0,0,0.45), transparent); }
+    .intro { font-size: 0.98rem; color: #2c2c2c; max-width: 620px; margin: 0 auto 20px; line-height: 1.5; }
+
+    .code-box { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 18px; }
+    .code-box label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.16em; color: #666; }
+    .code-box input {
+      padding: 10px 14px; border-radius: 999px; border: 1px solid rgba(0,0,0,0.16); outline: none;
+      font-size: 0.95rem; min-width: 240px; text-align: center;
+      transition: box-shadow .2s, border-color .2s; background-color: rgba(255,255,255,0.9); backdrop-filter: blur(6px);
+    }
+    .code-box input:focus { border-color: #111; box-shadow: 0 6px 16px rgba(0,0,0,0.14); }
+    .code-box button {
+      padding: 9px 22px; border-radius: 999px; border: none; font-size: 0.86rem; text-transform: uppercase;
+      letter-spacing: 0.16em; background-color: #111; color: #fff; cursor: pointer;
+      transition: transform .15s, box-shadow .15s, background .15s;
+    }
+    .code-box button:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,0.22); background-color: #222; }
+    .error { min-height: 16px; font-size: 0.78rem; color: #b32626; }
+
+    .tracks {
+      margin-top: 12px; padding: 18px 18px 20px; border-radius: 16px;
+      background: radial-gradient(circle at top, rgba(255,255,255,0.96), rgba(222,238,252,0.96));
+      border: 1px solid rgba(255,255,255,0.9); box-shadow: 0 16px 40px rgba(0,0,0,0.18); display: none;
+      backdrop-filter: blur(10px);
+    }
+    .tracks-title { font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: #555; margin-bottom: 10px; }
+    .track { margin-bottom: 14px; }
+    .track span { display: block; font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
+    audio { width: 100%; }
+    footer { margin-top: 16px; text-align: center; font-size: 0.72rem; color: #777; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="cover">
+        <!-- Asegúrate de subir el archivo con EXACTAMENTE este nombre y mayúscula: Portada.jpg -->
+        <img src="Portada.jpg" alt="Portada ESTO TAMBIÉN SOY YO - Pablo Santos">
+      </div>
+      <h1>ESTO TAMBIÉN SOY YO</h1>
+      <h2>PABLO SANTOS</h2>
+      <div class="glass-line"></div>
+      <p class="intro">
+        Acceso exclusivo a la escucha anticipada del álbum. Introduce tu código personal para descubrir cada fragmento,
+        cada emoción de estas 3 canciones: disfruta!
+      </p>
+    </header>
+
+    <section class="code-box">
+      <label for="code">Introduce tu código de acceso</label>
+      <input id="code" type="text" placeholder="••••••••••" autocomplete="off" />
+      <button id="enterBtn">Escuchar el álbum</button>
+      <div class="error" id="errorMsg"></div>
+    </section>
+
+    <section class="tracks" id="tracks">
+      <div class="tracks-title">Escucha privada · ESTO TAMBIÉN SOY YO</div>
+
+      <div class="track">
+        <span>01 · La primera</span>
+        <audio controls preload="none">
+          <source src="01-La-primera.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+
+      <div class="track">
+        <span>02 · Amor infinito</span>
+        <audio controls preload="none">
+          <source src="02-Amor-infinito.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+
+      <div class="track">
+        <span>10 · La última</span>
+        <audio controls preload="none">
+          <source src="10-La-ultima.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="year"></span> Pablo Santos. Escucha exclusiva para uso promocional. No compartir sin permiso.
+    </footer>
+  </div>
+
+  <script>
+    const ACCESS_CODE = "ESTOTAMBIENSOYYO"; // contraseña solicitada
+    const codeInput = document.getElementById('code');
+    const btn = document.getElementById('enterBtn');
+    const errorMsg = document.getElementById('errorMsg');
+    const tracks = document.getElementById('tracks');
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function checkCode() {
+      const value = codeInput.value.trim();
+      if (value === ACCESS_CODE) {
+        tracks.style.display = 'block';
+        errorMsg.textContent = "";
+        codeInput.disabled = true;
+        btn.disabled = true;
+        btn.textContent = "Acceso concedido";
+      } else {
+        errorMsg.textContent = "Código incorrecto. Revisa tu invitación.";
+      }
+    }
+
+    btn.addEventListener('click', checkCode);
+    codeInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        checkCode();
+      }
+    });
+  </script>
+</body>
+</html>
